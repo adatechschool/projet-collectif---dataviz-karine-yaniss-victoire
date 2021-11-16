@@ -8,7 +8,13 @@ let timeLate = 0
 let today
 let h
 let m
-let s
+let s 
+// Variables SVG
+let plantSVG = Snap('#plante_A')
+let leaf1SVG = Snap.select('#leaf1')
+let leaf2SVG = Snap.select('#leaf2')
+let leaf3SVG = Snap.select('#leaf3')
+let leaf4SVG = Snap.select('#leaf4')
 
 // heure 
 function checkTime(i) {
@@ -32,6 +38,7 @@ function startTime() {
     }, 500);
 
     getMessage();
+    
   }
 
 // création du message adaptable 
@@ -56,6 +63,7 @@ function getMessage(){
 function drink(){
     hasDrunk = true
     lastDrink = [h, m]
+    growPlant()
     // ajouter modif plante 
 }
 
@@ -72,4 +80,33 @@ function getNextDrink(){
     return (60 - m)
 }
 
+// leaf1SVG.animate({transform: "t0,-1000"}, 4000)
+
+function updatePlante(){
+    if (m == 15){
+        animPlante(leaf1SVG)
+    }
+    if (m == 30){
+        animPlante(leaf2SVG)
+    }
+    if (m == 45){
+        animPlante(leaf3SVG)
+    }
+    if (m == 59 && s == 59){
+        animPlante(leaf4SVG)
+    }
+}
+
+function animPlante(leaf){
+
+}
+
+function growPlant(){
+    
+}
+
 startTime();
+
+
+// Création Animation
+

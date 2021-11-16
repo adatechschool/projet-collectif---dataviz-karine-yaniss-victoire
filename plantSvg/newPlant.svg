@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1080 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:10;">
+    <g id="plante_A">
+        <g id="tige" transform="matrix(-0.763232,-0.646124,-0.646124,0.763232,600.713,308.936)">
+            <path d="M-725.668,265.916C-404.625,342.775 -129.335,325.709 97.443,265.916" style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:2.44px;"/>
+        </g>
+        <g id="leaf4" transform="matrix(1,0,0,1,698.404,143.2)">
+            <path d="M0,661.048C0,661.048 -105.966,439.434 68.537,-10.517C68.537,-10.517 162.808,292.61 14.032,671.565" style="fill:rgb(0,255,102);fill-rule:nonzero;stroke:rgb(21,236,105);stroke-width:2.44px;"/>
+        </g>
+        <g id="leaf3" transform="matrix(1,0,0,1,567.208,666.918)">
+            <path d="M0,26.816C0,26.816 -177.562,-72.935 -527.022,-34.524C-527.022,-34.524 -339.502,99.751 16.782,42.298" style="fill:rgb(0,255,102);fill-rule:nonzero;stroke:rgb(108,155,117);stroke-width:2.44px;"/>
+        </g>
+        <g id="leaf2" transform="matrix(1,0,0,1,468.816,113.309)">
+            <path d="M0,479.814C0,479.814 -80.525,326.963 -43.238,-13.528C-43.238,-13.528 79.839,151.857 12.237,493.342" style="fill:rgb(0,255,102);fill-rule:nonzero;stroke:rgb(75,132,86);stroke-width:2.44px;"/>
+        </g>
+        <g id="leaf1" transform="matrix(1,0,0,1,355.392,109.967)">
+            <path d="M0,339.794C0,339.794 -180.211,264.773 -270.136,0C-270.136,0 -110.992,57.619 0,339.794Z" style="fill:rgb(0,255,102);fill-rule:nonzero;stroke:rgb(75,132,86);stroke-width:2.44px;"/>
+        </g>
+    </g>
+</svg>

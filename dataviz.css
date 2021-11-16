@@ -7,6 +7,7 @@ body{
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    flex-direction: row;
 }#bottom{
     display: flex;
     margin: auto;
@@ -55,4 +56,4 @@ body{
     #bouton:hover:after {
     -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
     transform: translateX(-9%) translateY(-25%) rotate(45deg);
-    }
+    } 
