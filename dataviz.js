@@ -1,6 +1,6 @@
 // tout copier 
 // variables générales
-let hasDrunk = true  
+let hasDrunk = false  
 let lastDrink = [0,0]
 let message = document.getElementById("messages")
 let nextDrink = 0 
@@ -10,11 +10,10 @@ let h
 let m
 let s 
 // Variables SVG
-let plantSVG = Snap('#plante_A')
-let leaf1SVG = Snap.select('#leaf1')
-let leaf2SVG = Snap.select('#leaf2')
-let leaf3SVG = Snap.select('#leaf3')
-let leaf4SVG = Snap.select('#leaf4')
+let leaf1 = Snap("#leaf1")
+let leaf2 = Snap("#leaf2")
+let leaf3 = Snap("#leaf3")
+let leaf4 = Snap("#leaf4")
 
 // heure 
 function checkTime(i) {
@@ -38,10 +37,10 @@ function startTime() {
     }, 500);
 
     getMessage();
-    
+    updatePlante();
   }
 
-// création du message adaptable 
+// création du message adaptable + remise à zéro du hasDrunk à la fin de chaque heure 
 function getMessage(){
     if (m >= 00 && m <= 01 && hasDrunk == false){
         message.innerHTML = "C'est l'heure de boire !"
@@ -59,12 +58,11 @@ function getMessage(){
     }
 }
 
-// déterminer si l'utilisateur à bû ou non et sauvegarder l'heure de la dernière boisson 
+// indiquer que l'utilisateur à bû et sauvegarder l'heure de la dernière boisson 
 function drink(){
     hasDrunk = true
-    lastDrink = [h, m]
     growPlant()
-    // ajouter modif plante 
+    lastDrink = [h, m]
 }
 
 // calculer le temps depuis lequel on aurait dû boire (en minutes)
@@ -80,33 +78,33 @@ function getNextDrink(){
     return (60 - m)
 }
 
-// leaf1SVG.animate({transform: "t0,-1000"}, 4000)
+// feuilles qui tombent toutes les 15 minutes 
 
 function updatePlante(){
-    if (m == 15){
-        animPlante(leaf1SVG)
+    if (m == 15 && s == 0){
+        animPlante(leaf1)
     }
-    if (m == 30){
-        animPlante(leaf2SVG)
+    if (m == 30 && s == 0){
+        animPlante(leaf2)
     }
-    if (m == 45){
-        animPlante(leaf3SVG)
+    if (m == 45 && s == 0){
+        animPlante(leaf3)
     }
-    if (m == 59 && s == 59){
-        animPlante(leaf4SVG)
+    if (m == 59 && s == 0){
+        animPlante(leaf4)
     }
 }
 
+// Création Animation
 function animPlante(leaf){
-
+    leaf.animate({transform: "t5 250 r120"}, 2000)
 }
 
 function growPlant(){
-    
+    leaf1.animate({transform: "t0 0"}, 2000)
+    leaf2.animate({transform: "t0 0"}, 2000)
+    leaf3.animate({transform: "t0 0"}, 2000)
+    leaf4.animate({transform: "t0 0"}, 2000)
 }
 
 startTime();
-
-
-// Création Animation
-
