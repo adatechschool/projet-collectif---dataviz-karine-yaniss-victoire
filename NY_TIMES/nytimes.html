@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NY Times API example</title>
+  <link href="nytimes.css" rel="stylesheet">
+</head>
+<body>
+  <h1>NY Times article search</h1>
+
+  <div class="wrapper">
+
+    <div class="controls">
+      <form>
+        <p>
+          <label for="search">Enter a SINGLE search term (required): </label>
+          <input type="text" id="search" class="search" required>
+        </p>
+        <p>
+          <button class="submit">Submit search</button>
+        </p>
+      </form>
+      <p id="texte">Blablabla</p>
+      <div id="chats"></div>
+    </div>
+
+    <div class="results">
+      <nav>
+        <button class="prev">Previous 10</button>
+        <button class="next">Next 10</button>
+      </nav>
+
+      <section>
+      </section>
+    </div>
+
+  </div>
+
+  <script>
+
+  // Defining a baseURL and key to as part of the request URL
+
+  const baseURL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+  const key = '03LXLgpepGyoKUzCcftdURRLppVITO3p';
+  let url;
+
+  // Grab references to all the DOM elements you'll need to manipulate
+
+  const searchTerm = document.querySelector('.search');
+  const startDate = document.querySelector('.start-date');
+  const endDate = document.querySelector('.end-date');
+  const searchForm = document.querySelector('form');
+
+  let texte = document.getElementById('texte')
+  let chats = document.getElementById('chats')
+
+  // This is never used
+  // const submitBtn = document.querySelector('.submit');
+
+  const nextBtn = document.querySelector('.next');
+  const previousBtn = document.querySelector('.prev');
+
+  const section = document.querySelector('section');
+  const nav = document.querySelector('nav');
+
+  // Hide the "Previous"/"Next" navigation to begin with, as we don't need it immediately
+  nav.style.display = 'none';
+
+  // define the initial page number and status of the navigation being displayed
+  let pageNumber = 0;
+
+  // This is never used
+  // let displayNav = false;
+
+  // Event listeners to control the functionality
+  searchForm.addEventListener('submit', submitSearch);
+
+  nextBtn.addEventListener('click', nextPage);
+  previousBtn.addEventListener('click', previousPage);
+
+  function nextPage(e) {
+  pageNumber++;
+  fetchResults(e);
+};
+
+function previousPage(e) {
+  if(pageNumber > 0) {
+    pageNumber--;
+  } else {
+    return;
+  }
+  fetchResults(e);
+};
+
+  function submitSearch(e) {
+  pageNumber = 0;
+  fetchResults(e);
+}
+
+function fetchResults(e) {
+  // On utilise preventDefault() afin d'éviter
+  // l'envoie vers notre serveur et le rafraîchissement
+  // de la page
+  e.preventDefault();
+
+  // On compose l'URL
+  url = baseURL + '?api-key=' + key + '&page=' + pageNumber + '&q=' + searchTerm.value + '&fq=headline:("' + searchTerm.value + '")&begin_date=2021-09-17&end_date=2021-11-18'; 
+  
+
+
+  // On utilise fetch() pour envoyer la requête à l'API
+fetch(url).then(function(result) {
+  return result.json();
+}).then(function(json) {
+  displayResults(json);
+});
+}
+
+/* function countResults() {
+  let count = 0; 
+  for (pageNumber=0; pageNumber<10; pageNumber++) { 
+    count += articles.length
+  }
+  pageNumber=0
+  return count
+  
+} */ 
+
+
+function displayResults(json) {
+  while (section.firstChild) {
+      section.removeChild(section.firstChild);
+  }
+
+  var articles = json.response.docs;
+  var hits = json.response.meta.hits;
+
+  if(articles.length === 10) {
+    nav.style.display = 'block';
+  } else {
+    nav.style.display = 'none';
+  }
+
+  if(articles.length === 0) {
+    var para = document.createElement('p');
+    para.textContent = 'Aucun résultat reçu.'
+    section.appendChild(para);
+  } else { 
+    texte.innerHTML = "Il y a " + hits + " articles concernant les chats"
+    for(var i = 0; i < articles.length; i++) {
+      var article = document.createElement('article');
+      var heading = document.createElement('h2');
+      var link = document.createElement('a');
+      var img = document.createElement('img');
+      var para1 = document.createElement('p');
+      var para2 = document.createElement('p');
+      var clearfix = document.createElement('div');
+
+      var current = articles[i];
+      console.log(current);
+
+      link.href = current.web_url;
+      link.textContent = current.headline.main;
+      para1.textContent = current.snippet;
+      para2.textContent = 'Mots-clés : ';
+      for(var j = 0; j < current.keywords.length; j++) {
+        var span = document.createElement('span');
+        span.textContent += current.keywords[j].value + ' ';
+        para2.appendChild(span);
+      }
+
+      if(current.multimedia.length > 0) {
+        img.src = 'http://www.nytimes.com/' + current.multimedia[0].url;
+        img.alt = current.headline.main;
+      }
+
+      clearfix.setAttribute('class','clearfix');
+
+      article.appendChild(heading);
+      heading.appendChild(link);
+      article.appendChild(img);
+      article.appendChild(para1);
+      article.appendChild(para2);
+      article.appendChild(clearfix);
+      section.appendChild(article);
+    }
+  }
+}
+
+
+  </script>
+
+
+</body>
+</html>
