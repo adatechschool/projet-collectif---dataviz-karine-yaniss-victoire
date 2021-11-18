@@ -1,6 +1,13 @@
+@font-face {
+    font-family: Praise;
+    src: url(Praise-Regular.ttf);
+}
+
 body{
     display: flex;
     flex-direction: column;
+    font-family: Praise;
+    font-size: 1.5em;
 }#top{
     display: flex;
     margin: auto;
@@ -8,7 +15,11 @@ body{
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
-}#bottom{
+}
+#heure {
+    font-size: 1.9em;
+}
+#bottom{
     display: flex;
     margin: auto;
     flex-wrap: wrap;
@@ -19,6 +30,10 @@ body{
     bottom: 10%;
     display: flex;
     flex-direction: column;
+    }
+
+    #messages {
+        margin-top: 1.8em;
     }
     #bouton {
     border: none;
