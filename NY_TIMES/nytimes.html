@@ -18,11 +18,15 @@
           <input type="text" id="search" class="search" required>
         </p>
         <p>
+          <label for="start">Start date:</label>
+          <input type="date" id="start" class="start" pattern="[0-9]{8}">
+        </p>
+        <p>
           <button class="submit">Submit search</button>
         </p>
       </form>
       <p id="texte">Blablabla</p>
-      <div id="chats"></div>
+      <section id="chats"></section>
     </div>
 
     <div class="results">
@@ -48,8 +52,8 @@
   // Grab references to all the DOM elements you'll need to manipulate
 
   const searchTerm = document.querySelector('.search');
-  const startDate = document.querySelector('.start-date');
-  const endDate = document.querySelector('.end-date');
+  const startDate = document.querySelector('.start');
+  //const endDate = document.querySelector('.end-date');
   const searchForm = document.querySelector('form');
 
   let texte = document.getElementById('texte')
@@ -105,7 +109,7 @@ function fetchResults(e) {
   e.preventDefault();
 
   // On compose l'URL
-  url = baseURL + '?api-key=' + key + '&page=' + pageNumber + '&q=' + searchTerm.value + '&fq=headline:("' + searchTerm.value + '")&begin_date=2021-09-17&end_date=2021-11-18'; 
+  url = baseURL +'?api-key=' + key + '&page=' + pageNumber + '&q=' + searchTerm.value + '&fq=headline:("' + searchTerm.value + '")&begin_date='+startDate.value+'&end_date='+startDate.value; 
   
 
 
@@ -133,8 +137,13 @@ function displayResults(json) {
       section.removeChild(section.firstChild);
   }
 
+  while (chats.firstChild) {
+      chats.removeChild(chats.firstChild);
+  }
+
   var articles = json.response.docs;
   var hits = json.response.meta.hits;
+  //var search = 
 
   if(articles.length === 10) {
     nav.style.display = 'block';
@@ -146,8 +155,9 @@ function displayResults(json) {
     var para = document.createElement('p');
     para.textContent = 'Aucun résultat reçu.'
     section.appendChild(para);
+    texte.innerHTML = ""
   } else { 
-    texte.innerHTML = "Il y a " + hits + " articles concernant les chats"
+    texte.innerHTML = "Il y a " + hits + " articles concernant " + searchTerm.value
     for(var i = 0; i < articles.length; i++) {
       var article = document.createElement('article');
       var heading = document.createElement('h2');
@@ -186,7 +196,18 @@ function displayResults(json) {
       section.appendChild(article);
     }
   }
+   for (let j=0; j<hits; j++){
+    var item = document.createElement('span')
+    var cat = document.createElement('img')
+    cat.src= 'Psypsy.png'
+    chats.appendChild(item)
+    item.appendChild(cat)
+
+  }
+ 
+  
 }
+
 
 
   </script>
