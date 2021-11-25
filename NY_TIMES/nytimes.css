@@ -83,11 +83,7 @@ body {
     width: auto;
   }
 
-  .submit{
+  button{
     font-family: Comic Sans MS;
   }
 
-  input{
-    font-family: Comic Sans MS;
-  }
-  
